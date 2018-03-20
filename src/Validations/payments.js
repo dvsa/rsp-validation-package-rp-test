@@ -17,6 +17,11 @@ export default (data) => {
 	if (data.PenaltyStatus === 'UNPAID' && !isEmpty(data.PaymentDetail)) {
 		return { valid: false, error: { message: 'PaymentDetail must be empty {} when status is UNPAID' } };
 	}
+
+	if (data.PenaltyStatus === 'PAID' && isEmpty(data.PaymentDetail)) {
+		return { valid: false, error: { message: 'PaymentDetail must be populated when status is PAID' } };
+	}
+
 	if (!validatePaymentRef(data.PenaltyReference, data.PenaltyType)) {
 		return { valid: false, error: { message: 'Invalid Payment Reference' } };
 	}

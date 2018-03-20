@@ -116,7 +116,7 @@ describe('paymentValidation', () => {
 		});
 	});
 
-	describe('when UNPAID PaymentDetail and payment details not {}', () => {
+	describe('when UNPAID PenaltyStatus and payment details not {}', () => {
 		it('should return a fail with message', () => {
 			examplePayment.PenaltyStatus = 'UNPAID';
 			const retObj = paymentValidation(examplePayment);
@@ -125,7 +125,17 @@ describe('paymentValidation', () => {
 		});
 	});
 
-	describe('when UNPAID PaymentDetail and payment details are {}', () => {
+	describe('when PAID PenaltyStatus and payment details {}', () => {
+		it('should return a fail with message', () => {
+			examplePayment.PenaltyStatus = 'PAID';
+			examplePayment.PaymentDetail = {};
+			const retObj = paymentValidation(examplePayment);
+			expect(retObj.valid).toBe(false);
+			expect(retObj.error.message).toBe('PaymentDetail must be populated when status is PAID');
+		});
+	});
+
+	describe('when UNPAID PenaltyStatus and payment details are {}', () => {
 		it('should return as valid', () => {
 			examplePayment.PenaltyStatus = 'UNPAID';
 			examplePayment.PaymentDetail = {};

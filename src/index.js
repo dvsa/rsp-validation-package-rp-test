@@ -1,8 +1,6 @@
-import Joi from 'joi';
-
-import paymentValidation from './validations/payments';
-import penaltyDocumentValidation from './validations/penaltyDocuments';
-import tokenValidation from './validations/token';
+import paymentValidation from './Validations/payments';
+import penaltyDocumentValidation from './Validations/penaltyDocuments';
+import tokenValidation from './Validations/tokens';
 
 const validationHandler = {
 	paymentValidation,
