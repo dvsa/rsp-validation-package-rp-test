@@ -1,11 +1,13 @@
 {
   "name": "rsp-validation",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Validation package for Roadside Payments",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --require babel-register ./**/*.unit.js",
-    "test:watch": "mocha --require babel-register ./**/*.unit.js --watch"
+    "test": "mocha --require babel-register src/**/*.unit.js",
+    "test:watch": "mocha --require babel-register src/**/*.unit.js --watch",
+    "build": "babel src/**/**.js --out-dir dist",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "rsp",
