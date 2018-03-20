@@ -1,7 +1,7 @@
 {
-  "name": "rsp_validation",
+  "name": "rsp-validation",
   "version": "0.0.1",
-  "description": "Validate objects for Roadside Payments",
+  "description": "Validation package for Roadside Payments",
   "main": "index.js",
   "scripts": {
     "test": "mocha --require babel-register ./**/*.unit.js",
