@@ -1,0 +1,38 @@
+{
+  "name": "rsp_validation",
+  "version": "0.0.1",
+  "description": "Validate objects for Roadside Payments",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require babel-register ./**/*.unit.js",
+    "test:watch": "mocha --require babel-register ./**/*.unit.js --watch"
+  },
+  "keywords": [
+    "rsp",
+    "dvsa",
+    "validation"
+  ],
+  "author": "BJSS",
+  "license": "MIT",
+  "dependencies": {
+    "joi": "^13.1.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-loader": "^7.1.2",
+    "babel-minify-webpack-plugin": "^0.2.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "expect": "^22.4.0",
+    "mocha": "^5.0.4"
+  }
+}
