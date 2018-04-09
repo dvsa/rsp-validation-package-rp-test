@@ -22,6 +22,10 @@ export default (data) => {
 		return { valid: false, error: { message: 'PaymentDetail must be populated when status is PAID' } };
 	}
 
+	if (data.PenaltyStatus === 'PAID' && !data.PaymentDetail) {
+		return { valid: false, error: { message: 'PaymentMethod must be populated when status is PAID' } };
+	}
+
 	if (!validatePaymentRef(data.PenaltyReference, data.PenaltyType)) {
 		return { valid: false, error: { message: 'Invalid Payment Reference' } };
 	}

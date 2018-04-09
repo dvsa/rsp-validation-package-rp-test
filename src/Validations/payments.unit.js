@@ -15,6 +15,7 @@ describe('paymentValidation', () => {
 				AuthCode: '1234TBD',
 				PaymentAmount: 455,
 				PaymentDate: 1519300376667,
+				PaymentMethod: 'CASH',
 			},
 		};
 	});
@@ -141,6 +142,56 @@ describe('paymentValidation', () => {
 			examplePayment.PaymentDetail = {};
 			const retObj = paymentValidation(examplePayment);
 			expect(retObj.valid).toBe(true);
+		});
+	});
+
+	describe('when PAID and no payment method', () => {
+		it('should return valid set to false', () => {
+			examplePayment.PaymentDetail.PaymentMethod = '';
+			const retObj = paymentValidation(examplePayment);
+			expect(retObj.valid).toBe(false);
+			expect(retObj.error.message).toBe('Invalid Input');
+		});
+	});
+
+	describe('when PAID and payment method CASH', () => {
+		it('should return valid set to true', () => {
+			examplePayment.PaymentDetail.PaymentMethod = 'CASH';
+			const retObj = paymentValidation(examplePayment);
+			expect(retObj.valid).toBe(true);
+		});
+	});
+
+	describe('when PAID and payment method CHEQUE', () => {
+		it('should return valid set to true', () => {
+			examplePayment.PaymentDetail.PaymentMethod = 'CHEQUE';
+			const retObj = paymentValidation(examplePayment);
+			expect(retObj.valid).toBe(true);
+		});
+	});
+
+	describe('when PAID and payment method CARD', () => {
+		it('should return valid set to true', () => {
+			examplePayment.PaymentDetail.PaymentMethod = 'CARD';
+			const retObj = paymentValidation(examplePayment);
+			expect(retObj.valid).toBe(true);
+		});
+	});
+
+	describe('when PAID and payment method POSTAL', () => {
+		it('should return valid set to true', () => {
+			examplePayment.PaymentDetail.PaymentMethod = 'POSTAL';
+			const retObj = paymentValidation(examplePayment);
+			expect(retObj.valid).toBe(true);
+		});
+	});
+
+	describe('when PAID and payment method Not one of the options', () => {
+		it('should return valid set to false', () => {
+			examplePayment.PaymentDetail.PaymentMethod = 'NONSENSE';
+			const retObj = paymentValidation(examplePayment);
+			expect(retObj.valid).toBe(false);
+			expect(retObj.error.message).toBe('Invalid Input');
 		});
 	});
 

@@ -5,6 +5,7 @@ const paymentDetailsSchema = {
 	AuthCode: Joi.string(),
 	PaymentAmount: Joi.number().integer().min(10).max(9999),
 	PaymentDate: Joi.number().integer(),
+	PaymentMethod: Joi.string().regex(/^(CARD|CHEQUE|CASH|POSTAL)$/),
 };
 
 
