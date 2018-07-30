@@ -20,6 +20,7 @@ describe('penaltyGroupValidation', () => {
 					Origin: 'APP',
 					Value: {
 						penaltyType: 'FPN',
+						inPenaltyGroup: true,
 						paymentStatus: 'UNPAID',
 						paymentToken: 'XXX generated paymentToken XXX',
 						formNo: 'FPN 11/08',
