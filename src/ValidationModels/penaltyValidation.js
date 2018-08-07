@@ -41,6 +41,7 @@ const valueSchema = {
 	placeWhereIssued: Joi.string(),
 	officerID: Joi.string().required(),
 	siteCode: Joi.number().integer().required(),
+	inPenaltyGroup: Joi.boolean().required(),
 };
 
 export default {

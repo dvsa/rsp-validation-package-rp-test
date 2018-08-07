@@ -27,6 +27,7 @@ describe('penaltyValidation', () => {
 				paymentDate: 1518480000,
 				officerID: 'Z7F6yxnw--6DJf4sLsxjg_S-3Gvrl5MxV-1iY7RRNiA',
 				paymentStatus: 'PAID',
+				inPenaltyGroup: false,
 			},
 			Hash: 'c3c7581adeec5585e953e2a613c26986ce35a733f17947921cb828749c1aaf22',
 		};
