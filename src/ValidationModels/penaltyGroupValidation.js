@@ -8,5 +8,6 @@ export default {
 		SiteCode: Joi.number().required(),
 		VehicleRegistration: Joi.string().required(),
 		Penalties: Joi.array().items(PenaltyValidation.request).required(),
+		Enabled: Joi.boolean().required(),
 	}),
 };

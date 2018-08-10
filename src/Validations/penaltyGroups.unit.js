@@ -11,6 +11,7 @@ describe('penaltyGroupValidation', () => {
 			SiteCode: -1,
 			Location: 'Trowell Services',
 			VehicleRegistration: 'AA 123',
+			Enabled: true,
 			Penalties: [
 				{
 					ID: '820500000878_FPN',
