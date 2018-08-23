@@ -1,6 +1,6 @@
 {
   "name": "rsp-validation",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "Validation package for Roadside Payments",
   "main": "dist/index.js",
   "scripts": {
