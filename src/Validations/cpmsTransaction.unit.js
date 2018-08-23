@@ -1,123 +1,130 @@
 import expect from 'expect';
 
 import cpmsTransactionValidation from './cpmsTransaction';
+import cpmsPayloadSampleCard from '../../test/data/cpmsPayloads/cpmsPayloadSampleCard';
+import cpmsPayloadSampleCardNotPresent from '../../test/data/cpmsPayloads/cpmsPayloadSampleCardNotPresent';
+import cpmsPayloadSampleCash from '../../test/data/cpmsPayloads/cpmsPayloadSampleCash';
+import cpmsPayloadSampleCheque from '../../test/data/cpmsPayloads/cpmsPayloadSampleCheque';
+import cpmsPayloadSamplePostal from '../../test/data/cpmsPayloads/cpmsPayloadSamplePostal';
 
-let paymentObject;
 
 describe('cpmsTransactionValidation', () => {
-	beforeEach(() => {
-		const today = new Date(Date.now()).toISOString().split('T')[0];
-		paymentObject = {
-			redirect_uri: 'https://8pp5fzn8ih.execute-api.eu-west-1.amazonaws.com/dev/payment-code/15xedqh86uw0/receipt',
-			total_amount: 120.00,
-			customer_reference: '15xedqh86uw0_FPN',
-			scope: 'CARD',
-			country_code: 'gb',
-			customer_manager_name: 'test',
-			customer_name: 'test',
-			customer_address: {
-				line_1: 'test',
-				line_2: 'test',
-				line_3: 'test',
-				line_4: 'test',
-				city: 'test',
-				postcode: 'test',
-			},
-			payment_data: [
-				{
-					line_identifier: '1',
-					amount: 60.00,
-					net_amount: 60.00,
-					tax_amount: 0.00,
-					allocated_amount: 60.00,
-					tax_code: 'O',
-					tax_rate: '0',
-					sales_reference: '3124531097085_BB99BB',
-					product_reference: 'RoadSidePayments',
-					product_description: 'Fixed_Penalties',
-					invoice_date: today,
-					receiver_reference: '3124531097085_FPN',
-					receiver_name: 'DVSA RSP',
-					receiver_address: {
-						line_1: 'DVSA Fixed Penalty Office',
-						line_2: 'Ellipse',
-						line_3: 'Padley Road',
-						line_4: '',
-						city: 'Swansea',
-						postcode: 'SA18AN',
-					},
-					rule_start_date: today,
-					deferment_period: '1',
-					sales_person_reference: 'DVSA RSP',
-					user_id: '1234',
-				},
-				{
-					line_identifier: '2',
-					amount: 60.00,
-					net_amount: 60.00,
-					tax_amount: 0.00,
-					allocated_amount: 60.00,
-					tax_code: 'O',
-					tax_rate: '0',
-					sales_reference: '741258096325_BB99BB',
-					product_reference: 'RoadSidePayments',
-					product_description: 'Fixed_Penalties',
-					invoice_date: today,
-					receiver_reference: '741258096325_FPN',
-					receiver_name: 'DVSA RSP',
-					receiver_address: {
-						line_1: 'DVSA Fixed Penalty Office',
-						line_2: 'Ellipse',
-						line_3: 'Padley Road',
-						line_4: '',
-						city: 'Swansea',
-						postcode: 'SA18AN',
-					},
-					rule_start_date: today,
-					deferment_period: '1',
-					sales_person_reference: 'DVSA RSP',
-					user_id: '1234',
-				},
-			],
-		};
-	});
 
-	describe('when a valid payment object is passed for validation', () => {
-		it('should return valid set to true', () => {
-			const validationResult = cpmsTransactionValidation(paymentObject);
-			expect(validationResult.error.message).toBeUndefined();
-			expect(validationResult.valid).toBe(true);
+	context('given exceptional input values are being validated', () => {
+		describe('when a blank object is passed for validation', () => {
+			it('should return valid set to false', () => {
+				const validationResult = cpmsTransactionValidation({});
+				expect(validationResult.valid).toBe(false);
+			});
+		});
+
+		describe('when null is passed for validation', () => {
+			it('should return valid set to false', () => {
+				const validationResult = cpmsTransactionValidation(null);
+				expect(validationResult.valid).toBe(false);
+			});
 		});
 	});
 
-	describe('when a blank object is passed for validation', () => {
-		it('should return valid set to false', () => {
-			const validationResult = cpmsTransactionValidation({});
-			expect(validationResult.valid).toBe(false);
+	context('given a card payment object is being validated', () => {
+		let cardPaymentObject;
+
+		beforeEach(() => {
+			cardPaymentObject = { ...cpmsPayloadSampleCard };
+		});
+
+		describe('when a valid payment object is passed for validation', () => {
+			it('should return valid set to true', () => {
+				const validationResult = cpmsTransactionValidation(cardPaymentObject);
+				expect(validationResult.error.message).toBeUndefined();
+				expect(validationResult.valid).toBe(true);
+			});
+		});
+
+		describe('when included payment item doesn\'t match payment item schema', () => {
+			it('should return valid set to false', () => {
+				delete cardPaymentObject.payment_data[0].sales_reference;
+				const validationResult = cpmsTransactionValidation(cardPaymentObject);
+				expect(validationResult.valid).toBe(false);
+				expect(validationResult.error.message).toContain('sales_reference');
+			});
+		});
+
+		describe('when payment object array is empty', () => {
+			it('should return valid set to false', () => {
+				cardPaymentObject.payment_data = [];
+				const validationResult = cpmsTransactionValidation(cardPaymentObject);
+				expect(validationResult.valid).toBe(false);
+			});
+		});
+
+		describe('when card payment object has property from cash payment object', () => {
+			it('should return valid set to false', () => {
+				cardPaymentObject.slip_number = 'test';
+				const validationResult = cpmsTransactionValidation(cardPaymentObject);
+				expect(validationResult.valid).toBe(false);
+				expect(validationResult.error.message).toContain('slip_number');
+			});
 		});
 	});
 
-	describe('when null is passed for validation', () => {
-		it('should return valid set to false', () => {
-			const validationResult = cpmsTransactionValidation(null);
-			expect(validationResult.valid).toBe(false);
+	context('given a card not present payment object is being validated', () => {
+		let cardNotPresentPaymentObject;
+
+		beforeEach(() => {
+			cardNotPresentPaymentObject = { ...cpmsPayloadSampleCardNotPresent };
+		});
+		describe('when a valid payment object is passed for validation', () => {
+			it('should return valid set to true', () => {
+				const validationResult = cpmsTransactionValidation(cardNotPresentPaymentObject);
+				expect(validationResult.error.message).toBeUndefined();
+				expect(validationResult.valid).toBe(true);
+			});
 		});
 	});
 
-	describe('when included payment item doesn\'t match payment item schema', () => {
-		it('should return valid set to false', () => {
-			delete paymentObject.payment_data[0].sales_reference;
-			const validationResult = cpmsTransactionValidation(paymentObject);
-			expect(validationResult.valid).toBe(false);
+	context('given a cash payment object is being validated', () => {
+		let cashPaymentObject;
+
+		beforeEach(() => {
+			cashPaymentObject = { ...cpmsPayloadSampleCash };
+		});
+		describe('when a valid payment object is passed for validation', () => {
+			it('should return valid set to true', () => {
+				const validationResult = cpmsTransactionValidation(cashPaymentObject);
+				expect(validationResult.error.message).toBeUndefined();
+				expect(validationResult.valid).toBe(true);
+			});
 		});
 	});
 
-	describe('when payment object array is empty', () => {
-		it('should return valid set to false', () => {
-			paymentObject.payment_data = [];
-			const validationResult = cpmsTransactionValidation(paymentObject);
-			expect(validationResult.valid).toBe(false);
+	context('given a cheque payment object is  being validated', () => {
+		let chequePaymentObject;
+
+		beforeEach(() => {
+			chequePaymentObject = { ...cpmsPayloadSampleCheque };
+		});
+		describe('when a valid cheque payment object is passed for validation', () => {
+			it('should return valid set to true', () => {
+				const validationResult = cpmsTransactionValidation(chequePaymentObject);
+				expect(validationResult.error.message).toBeUndefined();
+				expect(validationResult.valid).toBe(true);
+			});
 		});
 	});
 
+	context('given a postal order payment object is being validated', () => {
+		let postalOrderPaymentObject;
+
+		beforeEach(() => {
+			postalOrderPaymentObject = { ...cpmsPayloadSamplePostal };
+		});
+		describe('when a valid postal order payment obejct is passed for validation', () => {
+			it('should return valid set to true', () => {
+				const validationResult = cpmsTransactionValidation(postalOrderPaymentObject);
+				expect(validationResult.error.message).toBeUndefined();
+				expect(validationResult.valid).toBe(true);
+			});
+		});
+	});
 });

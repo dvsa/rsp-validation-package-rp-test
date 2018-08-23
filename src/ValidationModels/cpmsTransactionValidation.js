@@ -32,7 +32,14 @@ const paymentDataSchema = {
 
 export default {
 	request: Joi.object().keys({
-		redirect_uri: Joi.string().required(),
+		redirect_uri: Joi.string().when('scope', { is: ['CARD', 'CNP'], then: Joi.string().required(), otherwise: Joi.forbidden() }),
+		slip_number: Joi.when('scope', { is: ['CASH', 'CHEQUE', 'POSTAL_ORDER'], then: Joi.string().required(), otherwise: Joi.forbidden() }),
+		batch_number: Joi.when('scope', { is: ['CASH', 'CHEQUE', 'POSTAL_ORDER'], then: Joi.string().required(), otherwise: Joi.forbidden() }),
+		receipt_date: Joi.when('scope', { is: ['CASH', 'CHEQUE', 'POSTAL_ORDER'], then: Joi.string().required(), otherwise: Joi.forbidden() }),
+		cheque_date: Joi.when('scope', { is: 'CHEQUE', then: Joi.string().required(), otherwise: Joi.any().forbidden() }),
+		cheque_number: Joi.when('scope', { is: 'CHEQUE', then: Joi.string().required(), otherwise: Joi.any().forbidden() }),
+		name_on_cheque: Joi.when('scope', { is: 'CHEQUE', then: Joi.string().required(), otherwise: Joi.any().forbidden() }),
+		postal_order_number: Joi.when('scope', { is: 'POSTAL_ORDER', then: Joi.string().required(), otherwise: Joi.any().forbidden() }),
 		total_amount: Joi.number().integer().min(10).max(9999),
 		customer_reference: Joi.string().required(),
 		scope: Joi.string().valid('CARD', 'CHEQUE', 'CNP', 'CASH', 'POSTAL_ORDER', 'REPORT', 'CHARGE_BACK', 'CHEQUE_RD').required(),
