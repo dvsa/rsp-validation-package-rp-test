@@ -52,5 +52,6 @@ export default {
 		Offset: Joi.number(),
 		Value: Joi.object(valueSchema),
 		Origin: Joi.string(),
+		VehicleRegistration: Joi.string(),
 	}),
 };
