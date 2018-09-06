@@ -9,7 +9,7 @@ export default {
 	name_on_cheque: 'Joe Bloggs',
 	customer_reference: '15xedqh86uw0_FPN',
 	scope: 'CHEQUE',
-	country_code: 'gb',
+	country_code: 'GB',
 	customer_manager_name: 'test',
 	customer_name: 'test',
 	customer_address: {
