@@ -4,7 +4,7 @@ export default {
 	total_amount: 120.00,
 	customer_reference: '15xedqh86uw0_FPN',
 	scope: 'CNP',
-	country_code: 'gb',
+	country_code: 'GB',
 	customer_manager_name: 'test',
 	customer_name: 'test',
 	customer_address: {

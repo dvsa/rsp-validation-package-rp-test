@@ -43,7 +43,7 @@ export default {
 		total_amount: Joi.number().integer().min(10).max(9999),
 		customer_reference: Joi.string().required(),
 		scope: Joi.string().valid('CARD', 'CHEQUE', 'CNP', 'CASH', 'POSTAL_ORDER', 'REPORT', 'CHARGE_BACK', 'CHEQUE_RD').required(),
-		country_code: Joi.string().valid('gb').required(),
+		country_code: Joi.string().valid('GB').required(),
 		customer_manager_name: Joi.string().regex(/^[a-z]+$/).required(),
 		customer_name: Joi.string().regex(/^[a-z]+$/).required(),
 		customer_address: Joi.object().keys({

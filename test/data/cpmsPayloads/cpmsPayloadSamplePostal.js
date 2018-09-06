@@ -7,7 +7,7 @@ export default {
 	receipt_date: today,
 	customer_reference: '15xedqh86uw0_FPN',
 	scope: 'POSTAL_ORDER',
-	country_code: 'gb',
+	country_code: 'GB',
 	customer_manager_name: 'test',
 	customer_name: 'test',
 	customer_address: {
