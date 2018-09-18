@@ -40,7 +40,7 @@ export default {
 			},
 			rule_start_date: today,
 			deferment_period: '1',
-			sales_person_reference: 'DVSA RSP',
+			sales_person_reference: 'Enforcement',
 			user_id: '1234',
 		},
 		{
@@ -67,7 +67,7 @@ export default {
 			},
 			rule_start_date: today,
 			deferment_period: '1',
-			sales_person_reference: 'DVSA RSP',
+			sales_person_reference: 'Enforcement',
 			user_id: '1234',
 		},
 	],

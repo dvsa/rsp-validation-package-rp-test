@@ -26,7 +26,7 @@ const paymentDataSchema = {
 	}),
 	rule_start_date: Joi.date().min(today).required(),
 	deferment_period: Joi.string().valid('1').required(),
-	sales_person_reference: Joi.string().valid('DVSA RSP').required(),
+	sales_person_reference: Joi.string().valid('Enforcement', 'Impounding').required(),
 	user_id: Joi.string().required(),
 };
 
