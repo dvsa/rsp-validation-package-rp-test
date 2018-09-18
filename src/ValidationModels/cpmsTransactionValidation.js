@@ -12,7 +12,7 @@ const paymentDataSchema = {
 	tax_rate: Joi.string().valid('0').required(),
 	sales_reference: Joi.string().token().required(),
 	product_reference: Joi.string().valid('RoadSidePayments').required(),
-	product_description: Joi.string().valid('Fixed_Penalties', 'Immobilisation', 'Court_Deposits').required(),
+	product_description: Joi.string().valid('Fixed Penalties', 'Immobilisation', 'Court Deposits').required(),
 	invoice_date: Joi.date().min(today).required(),
 	receiver_reference: Joi.string().token().required(),
 	receiver_name: Joi.string().valid('DVSA RSP').required(),
