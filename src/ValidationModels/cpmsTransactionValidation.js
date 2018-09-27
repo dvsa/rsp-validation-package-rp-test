@@ -45,7 +45,7 @@ export default {
 		scope: Joi.string().valid('CARD', 'CHEQUE', 'CNP', 'CASH', 'POSTAL_ORDER', 'REPORT', 'CHARGE_BACK', 'CHEQUE_RD').required(),
 		country_code: Joi.string().valid('GB').required(),
 		customer_manager_name: Joi.string().regex(/^[a-z]+$/).required(),
-		customer_name: Joi.string().regex(/^[a-z]+$/).required(),
+		customer_name: Joi.string().valid('DVSA RSP').required(),
 		customer_address: Joi.object().keys({
 			line_1: Joi.string().required(),
 			line_2: Joi.string().required(),
