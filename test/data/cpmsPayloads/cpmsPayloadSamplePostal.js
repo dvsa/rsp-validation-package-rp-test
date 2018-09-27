@@ -9,7 +9,7 @@ export default {
 	scope: 'POSTAL_ORDER',
 	country_code: 'GB',
 	customer_manager_name: 'test',
-	customer_name: 'test',
+	customer_name: 'DVSA RSP',
 	customer_address: {
 		line_1: 'test',
 		line_2: 'test',
