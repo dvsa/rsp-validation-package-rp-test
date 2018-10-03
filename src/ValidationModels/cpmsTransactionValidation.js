@@ -10,7 +10,7 @@ const paymentDataSchema = {
 	allocated_amount: Joi.number().precision(2).required(),
 	tax_code: Joi.string().valid('O').required(),
 	tax_rate: Joi.string().valid('0').required(),
-	sales_reference: Joi.string().token().required(),
+	sales_reference: Joi.string().required(),
 	product_reference: Joi.string().valid('RoadSidePayments').required(),
 	product_description: Joi.string().valid('Fixed Penalties', 'Immobilisation', 'Court Deposits').required(),
 	invoice_date: Joi.date().min(today).required(),
