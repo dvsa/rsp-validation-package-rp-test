@@ -2,6 +2,7 @@ import expect from 'expect';
 
 import cpmsTransactionValidation from './cpmsTransaction';
 import cpmsPayloadSampleCard from '../../test/data/cpmsPayloads/cpmsPayloadSampleCard';
+import cpmsPayloadSampleCardSingleIm from '../../test/data/cpmsPayloads/cpmsPayloadSampleCardSingleIm';
 import cpmsPayloadSampleCardNotPresent from '../../test/data/cpmsPayloads/cpmsPayloadSampleCardNotPresent';
 import cpmsPayloadSampleCash from '../../test/data/cpmsPayloads/cpmsPayloadSampleCash';
 import cpmsPayloadSampleCheque from '../../test/data/cpmsPayloads/cpmsPayloadSampleCheque';
@@ -64,6 +65,21 @@ describe('cpmsTransactionValidation', () => {
 				const validationResult = cpmsTransactionValidation(cardPaymentObject);
 				expect(validationResult.valid).toBe(false);
 				expect(validationResult.error.message).toContain('slip_number');
+			});
+		});
+	});
+
+	context('given a payment containing an immobilisation is being taken', () => {
+		let immobCardPaymentObj;
+		beforeEach(() => {
+			immobCardPaymentObj = { ...cpmsPayloadSampleCardSingleIm };
+		});
+
+		describe('when a valid payment object is passed for validation', () => {
+			it('should return with valid set to true', () => {
+				const validationResult = cpmsTransactionValidation(immobCardPaymentObj);
+				expect(validationResult.error.message).toBeUndefined();
+				expect(validationResult.valid).toBe(true);
 			});
 		});
 	});
