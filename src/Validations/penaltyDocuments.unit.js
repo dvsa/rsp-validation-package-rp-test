@@ -12,7 +12,7 @@ describe('penaltyValidation', () => {
 			Offset: 1519310362.891,
 			Value: {
 				dateTime: 1519257600,
-				issuedDateTime: 1519257600,
+				paymentCodeDateTime: 1519257600,
 				siteCode: 5,
 				vehicleDetails: {
 					regNo: '12212121X',
