@@ -38,6 +38,7 @@ const valueSchema = {
 	paymentDueDate: Joi.number().integer(),
 	officerName: Joi.string().required(),
 	dateTime: Joi.number().integer().required(),
+	paymentCodeDateTime: Joi.number().integer(),
 	placeWhereIssued: Joi.string(),
 	officerID: Joi.string().required(),
 	siteCode: Joi.number().integer().required(),
