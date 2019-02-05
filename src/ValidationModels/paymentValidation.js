@@ -1,8 +1,8 @@
 import Joi from 'joi';
 
 const paymentDetailsSchema = {
-	AuthCode: Joi.string(),
 	PaymentRef: Joi.string().regex(/^[A-Z0-9-]*$/),
+	AuthCode: Joi.string().alphanum(),
 	PaymentAmount: Joi.number().integer().min(10).max(9999),
 	PaymentDate: Joi.number().integer(),
 	PaymentMethod: Joi.string().regex(/^(CARD|CHEQUE|CASH|POSTAL)$/),

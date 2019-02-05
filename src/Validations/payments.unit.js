@@ -211,4 +211,13 @@ describe('paymentValidation', () => {
 			expect(error.message).toBe('Invalid Input');
 		});
 	});
+
+	describe('when auth code is invalid', () => {
+		it('should return valid set to false', () => {
+			examplePayment.PaymentDetail.AuthCode = '<invalid />';
+			const { valid, error } = paymentValidation(examplePayment);
+			expect(valid).toBe(false);
+			expect(error.message).toBe('Invalid Input');
+		});
+	});
 });
