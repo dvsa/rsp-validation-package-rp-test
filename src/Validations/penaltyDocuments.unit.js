@@ -50,6 +50,24 @@ describe('penaltyValidation', () => {
 		});
 	});
 
+	describe('when ID is missing', () => {
+		it('should return a fail with message', () => {
+			delete exampleDocument.ID;
+			const { valid, error } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(false);
+			expect(error.message).toBe('Invalid Input');
+		});
+	});
+
+	describe('when ID is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.ID = '56789012387612-FPN';
+			const { valid, error } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(false);
+			expect(error.message).toBe('Invalid Input');
+		});
+	});
+
 	describe('when penaltyType not FPN, CDN or IM', () => {
 		it('should return a fail with message', () => {
 			exampleDocument.Value.penaltyType = 'XCV';
