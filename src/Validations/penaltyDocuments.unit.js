@@ -68,6 +68,23 @@ describe('penaltyValidation', () => {
 		});
 	});
 
+	describe('when Origin is valid', () => {
+		it('should return valid set to true', () => {
+			exampleDocument.Origin = 'APP';
+			const { valid } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(true);
+		});
+	});
+
+	describe('when Origin is not "APP"', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Origin = 'PORTAL';
+			const { valid, error } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(false);
+			expect(error.message).toBe('Invalid Input');
+		});
+	});
+
 	describe('when penaltyType not FPN, CDN or IM', () => {
 		it('should return a fail with message', () => {
 			exampleDocument.Value.penaltyType = 'XCV';
