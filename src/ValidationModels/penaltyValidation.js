@@ -48,7 +48,7 @@ const valueSchema = {
 export default {
 	request: Joi.object().keys({
 		ID: Joi.string().regex(/^[A-Z0-9_]*$/).required(),
-		Hash: Joi.string().required(),
+		Hash: Joi.string().required().alphanum(),
 		Enabled: Joi.boolean().required(),
 		Offset: Joi.number(),
 		Value: Joi.object(valueSchema),

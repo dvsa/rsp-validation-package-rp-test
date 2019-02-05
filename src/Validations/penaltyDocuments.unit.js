@@ -85,6 +85,24 @@ describe('penaltyValidation', () => {
 		});
 	});
 
+	describe('when Hash is missing', () => {
+		it('should return a fail with message', () => {
+			delete exampleDocument.Hash;
+			const { valid, error } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(false);
+			expect(error.message).toBe('Invalid Input');
+		});
+	});
+
+	describe('when Hash is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Hash = '.invalid.';
+			const { valid, error } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(false);
+			expect(error.message).toBe('Invalid Input');
+		});
+	});
+
 	describe('when penaltyType not FPN, CDN or IM', () => {
 		it('should return a fail with message', () => {
 			exampleDocument.Value.penaltyType = 'XCV';
