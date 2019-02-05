@@ -67,6 +67,16 @@ describe('penaltyValidation', () => {
 			expect(retObj.error.message).toBe('Invalid Input');
 		});
 	});
+
+	describe('when paymentToken is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.paymentToken = '<invalid />';
+			const { valid, error } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(false);
+			expect(error.message).toBe('Invalid Input');
+		});
+	});
+
 	describe('when referenceNo is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.referenceNo;
