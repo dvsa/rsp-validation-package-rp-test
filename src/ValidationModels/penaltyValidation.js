@@ -40,7 +40,7 @@ const valueSchema = {
 	dateTime: Joi.number().integer().required(),
 	paymentCodeDateTime: Joi.number().integer(),
 	placeWhereIssued: Joi.string(),
-	officerID: Joi.string().required(),
+	officerID: Joi.string().regex(/^[a-zA-Z0-9_-]*$/).required(),
 	siteCode: Joi.number().integer().required(),
 	inPenaltyGroup: Joi.boolean().required(),
 };

@@ -143,6 +143,16 @@ describe('penaltyValidation', () => {
 			expect(retObj.error.message).toBe('Invalid Input');
 		});
 	});
+
+	describe('when officerID is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.officerID = 'inva/id';
+			const retObj = penaltyValidation(exampleDocument);
+			expect(retObj.valid).toBe(false);
+			expect(retObj.error.message).toBe('Invalid Input');
+		});
+	});
+
 	describe('when dateTime is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.dateTime;
