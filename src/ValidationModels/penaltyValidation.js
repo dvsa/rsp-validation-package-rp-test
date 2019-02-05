@@ -26,8 +26,9 @@ const valueSchema = {
 	// .when('paymentStatus', { is: 'PAID', then: Joi.required() }),
 	paymentDate: Joi.number().integer(),
 	// .when('paymentStatus', { is: 'PAID', then: Joi.required() }),
-	referenceNo: Joi.string().required().min(8).max(18),
 	paymentToken: Joi.string().alphanum().required(),
+	referenceNo: Joi.string().required().regex(/^[0-9-A-Z]*$/).min(8)
+		.max(18),
 	driverDetails: Joi.object(driverSchema),
 	vehicleDetails: Joi.object(vehicleSchema).required(),
 	trailerDetails: Joi.object(trailerSchema),

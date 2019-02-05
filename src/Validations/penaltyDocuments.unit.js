@@ -85,6 +85,16 @@ describe('penaltyValidation', () => {
 			expect(retObj.error.message).toBe('Invalid Input');
 		});
 	});
+
+	describe('when referenceNo is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.referenceNo = '<invalid/>';
+			const { valid, error } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(false);
+			expect(error.message).toBe('Invalid Input');
+		});
+	});
+
 	describe('when vehicleDetails is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.vehicleDetails;
