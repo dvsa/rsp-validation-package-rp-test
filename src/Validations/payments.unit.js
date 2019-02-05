@@ -195,4 +195,20 @@ describe('paymentValidation', () => {
 		});
 	});
 
+	describe('when PaymentRef contains hyphens', () => {
+		it('should return valid set to true', () => {
+			examplePayment.PaymentDetail.PaymentRef = 'ECMS-01-20190131-151909-F38F9FC5';
+			const { valid } = paymentValidation(examplePayment);
+			expect(valid).toBe(true);
+		});
+	});
+
+	describe('when PaymentRef is invalid', () => {
+		it('should return valid set to false', () => {
+			examplePayment.PaymentDetail.PaymentRef = 'ecms-01-20190131-151909-f38f9fc5';
+			const { valid, error } = paymentValidation(examplePayment);
+			expect(valid).toBe(false);
+			expect(error.message).toBe('Invalid Input');
+		});
+	});
 });
