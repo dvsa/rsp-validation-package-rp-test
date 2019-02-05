@@ -215,5 +215,14 @@ describe('penaltyValidation', () => {
 		});
 	});
 
+	describe('when payment status is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.paymentStatus = 'PAYED';
+			const retObj = penaltyValidation(exampleDocument);
+			expect(retObj.valid).toBe(false);
+			expect(retObj.error.message).toBe('Invalid Input');
+		});
+	});
+
 
 });
