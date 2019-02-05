@@ -8,7 +8,7 @@ describe('penaltyGroupValidation', () => {
 	let penaltyGroup;
 
 	beforeEach(() => {
-		penaltyGroup = { ...penaltyGroupSubmissionSample };
+		penaltyGroup = JSON.parse(JSON.stringify(penaltyGroupSubmissionSample));
 	});
 
 	describe('when a valid penalty group passed for validation', () => {
@@ -38,6 +38,14 @@ describe('penaltyGroupValidation', () => {
 			delete penaltyGroup.Penalties[0].ID;
 			const validationResult = penaltyGroupValidation(penaltyGroup);
 			expect(validationResult.valid).toBe(false);
+		});
+	});
+
+	describe('when vehicle registration is invalid', () => {
+		it('should return valid set to false', () => {
+			penaltyGroup.VehicleRegistration = 'FHB, FHBGH';
+			const { valid } = penaltyGroupValidation(penaltyGroup);
+			expect(valid).toBe(false);
 		});
 	});
 });
