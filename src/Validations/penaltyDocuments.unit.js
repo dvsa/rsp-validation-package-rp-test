@@ -224,5 +224,12 @@ describe('penaltyValidation', () => {
 		});
 	});
 
-
+	describe('when payment auth code is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.paymentAuthCode = '>123<';
+			const { valid, error } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(false);
+			expect(error.message).toBe('Invalid Input');
+		});
+	});
 });
