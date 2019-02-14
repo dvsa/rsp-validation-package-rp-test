@@ -1,5 +1,8 @@
 import Joi from 'joi';
 
+const regNoValidation = Joi.string().min(1).max(10)
+	.regex(/^[A-Z0-9a-z]{1,10}$/);
+
 const driverSchema = {
 	name: Joi.string(),
 	address: Joi.string(),
@@ -7,8 +10,7 @@ const driverSchema = {
 };
 
 const vehicleSchema = {
-	regNo: Joi.string().required().min(1).max(10)
-		.regex(/^[A-Z0-9a-z]{1,10}$/),
+	regNo: regNoValidation.required(),
 	make: Joi.string(),
 	nationality: Joi.string(),
 };
@@ -53,5 +55,6 @@ export default {
 		Offset: Joi.number(),
 		Value: Joi.object(valueSchema),
 		Origin: Joi.string().valid(['APP']),
+		VehicleRegistration: regNoValidation,
 	}),
 };

@@ -37,6 +37,7 @@ describe('penaltyValidation', () => {
 				inPenaltyGroup: false,
 			},
 			Hash: 'c3c7581adeec5585e953e2a613c26986ce35a733f17947921cb828749c1aaf22',
+			VehicleRegistration: '12212121X',
 		};
 	});
 
@@ -203,6 +204,25 @@ describe('penaltyValidation', () => {
 	describe('when regNo contains special characters', () => {
 		it('should return a fail with message', () => {
 			exampleDocument.Value.vehicleDetails.regNo = 'ABC123!';
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
+	describe('when VehicleRegistration is missing', () => {
+		it('should return valid set to true', () => {
+			delete exampleDocument.VehicleRegistration;
+			const { valid } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(true);
+		});
+	});
+	describe('when VehicleRegistration is greater than 10 characters', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.VehicleRegistration = 'ABC123DEF45';
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
+	describe('when VehicleRegistration contains special characters', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.VehicleRegistration = 'ABC123!';
 			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
