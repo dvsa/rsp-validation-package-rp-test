@@ -77,9 +77,9 @@ describe('penaltyValidation', () => {
 		});
 	});
 
-	describe('when Origin is not "APP"', () => {
+	describe('when Origin is invalid', () => {
 		it('should return a fail with message', () => {
-			exampleDocument.Origin = 'PORTAL';
+			exampleDocument.Origin = 'APP1';
 			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
