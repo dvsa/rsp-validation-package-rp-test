@@ -4,6 +4,12 @@ import penaltyValidation from '../Validations/penaltyDocuments';
 
 let exampleDocument;
 
+const assertInvalidPenaltyDocument = (doc) => {
+	const { valid, error } = penaltyValidation(doc);
+	expect(valid).toBe(false);
+	expect(error.message).toBe('Invalid Input');
+};
+
 describe('penaltyValidation', () => {
 	beforeEach(() => {
 		exampleDocument = {
@@ -31,6 +37,7 @@ describe('penaltyValidation', () => {
 				inPenaltyGroup: false,
 			},
 			Hash: 'c3c7581adeec5585e953e2a613c26986ce35a733f17947921cb828749c1aaf22',
+			VehicleRegistration: '12212121X',
 		};
 	});
 
@@ -44,123 +51,179 @@ describe('penaltyValidation', () => {
 	describe('when an empty object is passed for validation', () => {
 		const penaltyDocument = {};
 		it('should return a fail with message', () => {
-			const retObj = penaltyValidation(penaltyDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(penaltyDocument);
+		});
+	});
+
+	describe('when ID is missing', () => {
+		it('should return a fail with message', () => {
+			delete exampleDocument.ID;
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
+
+	describe('when ID is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.ID = '56789012387612-FPN';
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
+
+	describe('when Origin is valid', () => {
+		it('should return valid set to true', () => {
+			exampleDocument.Origin = 'APP';
+			const { valid } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(true);
+		});
+	});
+
+	describe('when Origin is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Origin = 'APP1';
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
+
+	describe('when Hash is missing', () => {
+		it('should return a fail with message', () => {
+			delete exampleDocument.Hash;
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
+
+	describe('when Hash is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Hash = '.invalid.';
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 
 	describe('when penaltyType not FPN, CDN or IM', () => {
 		it('should return a fail with message', () => {
 			exampleDocument.Value.penaltyType = 'XCV';
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 
 	describe('when paymentToken is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.paymentToken;
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
+
+	describe('when paymentToken is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.paymentToken = '<invalid />';
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
+
 	describe('when referenceNo is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.referenceNo;
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
+
+	describe('when referenceNo is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.referenceNo = '<invalid/>';
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
+
 	describe('when vehicleDetails is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.vehicleDetails;
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 	describe('when penaltyAmount is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.penaltyAmount;
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 	describe('when penaltyAmount is <10', () => {
 		it('should return a fail with message', () => {
 			exampleDocument.Value.penaltyAmount = 9;
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 	describe('when penaltyAmount is >9999', () => {
 		it('should return a fail with message', () => {
 			exampleDocument.Value.penaltyAmount = 10000;
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 	describe('when officerName is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.officerName;
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 	describe('when officerID is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.officerID;
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
+
+	describe('when officerID is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.officerID = 'inva/id';
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
+
 	describe('when dateTime is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.dateTime;
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 	describe('when siteCode is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.siteCode;
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 	describe('when regNo is missing', () => {
 		it('should return a fail with message', () => {
 			delete exampleDocument.Value.vehicleDetails.regNo;
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 	describe('when regNo is greater than 10 characters', () => {
 		it('should return a fail with message', () => {
 			exampleDocument.Value.vehicleDetails.regNo = 'ABC123DEF45';
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 	describe('when regNo contains special characters', () => {
 		it('should return a fail with message', () => {
 			exampleDocument.Value.vehicleDetails.regNo = 'ABC123!';
-			const retObj = penaltyValidation(exampleDocument);
-			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
+	describe('when VehicleRegistration is missing', () => {
+		it('should return valid set to true', () => {
+			delete exampleDocument.VehicleRegistration;
+			const { valid } = penaltyValidation(exampleDocument);
+			expect(valid).toBe(true);
+		});
+	});
+	describe('when VehicleRegistration is greater than 10 characters', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.VehicleRegistration = 'ABC123DEF45';
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
+	describe('when VehicleRegistration contains special characters', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.VehicleRegistration = 'ABC123!';
+			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
 
@@ -215,5 +278,17 @@ describe('penaltyValidation', () => {
 		});
 	});
 
+	describe('when payment status is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.paymentStatus = 'PAYED';
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
 
+	describe('when payment auth code is invalid', () => {
+		it('should return a fail with message', () => {
+			exampleDocument.Value.paymentAuthCode = '>123<';
+			assertInvalidPenaltyDocument(exampleDocument);
+		});
+	});
 });
