@@ -45,6 +45,7 @@ const valueSchema = {
 	officerID: Joi.string().regex(/^[a-zA-Z0-9_-]*$/).required(),
 	siteCode: Joi.number().integer().required(),
 	inPenaltyGroup: Joi.boolean().required(),
+	paymentStartTime: Joi.number(),
 };
 
 export default {

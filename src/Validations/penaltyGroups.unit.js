@@ -48,4 +48,14 @@ describe('penaltyGroupValidation', () => {
 			expect(valid).toBe(false);
 		});
 	});
+
+	describe('when paymentStartTime is valid', () => {
+		it('should pass validation', () => {
+			penaltyGroup.fpnPaymentStartTime = 1559572341.039;
+			penaltyGroup.imPaymentStartTime = 1559572341.039;
+			penaltyGroup.cdnPaymentStartTime = 1559572341.039;
+			const retObj = penaltyGroupValidation(penaltyGroup);
+			expect(retObj.valid).toBe(true);
+		});
+	})
 });
