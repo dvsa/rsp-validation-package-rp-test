@@ -298,5 +298,5 @@ describe('penaltyValidation', () => {
 			const retObj = penaltyValidation(exampleDocument);
 			expect(retObj.valid).toBe(true);
 		});
-	})
+	});
 });

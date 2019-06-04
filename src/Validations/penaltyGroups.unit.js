@@ -57,5 +57,5 @@ describe('penaltyGroupValidation', () => {
 			const retObj = penaltyGroupValidation(penaltyGroup);
 			expect(retObj.valid).toBe(true);
 		});
-	})
+	});
 });
