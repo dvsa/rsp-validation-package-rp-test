@@ -11,6 +11,6 @@ export default {
 		Penalties: Joi.array().items(PenaltyValidation.request).required(),
 		fpnPaymentStartTime: Joi.number(),
 		imPaymentStartTime: Joi.number(),
-		cdnPaymentStartTime: Joi.number()
+		cdnPaymentStartTime: Joi.number(),
 	}),
 };
