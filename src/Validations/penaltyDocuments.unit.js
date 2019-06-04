@@ -291,4 +291,12 @@ describe('penaltyValidation', () => {
 			assertInvalidPenaltyDocument(exampleDocument);
 		});
 	});
+
+	describe('when paymentStartTime is valid', () => {
+		it('should pass validation', () => {
+			exampleDocument.Value.paymentStartTime = 1559572341.039;
+			const retObj = penaltyValidation(exampleDocument);
+			expect(retObj.valid).toBe(true);
+		});
+	})
 });
