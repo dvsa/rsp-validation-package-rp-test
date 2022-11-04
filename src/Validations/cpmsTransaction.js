@@ -1,8 +1,8 @@
-import Joi from 'joi';
 import cpmsTransactionValidation from '../ValidationModels/cpmsTransactionValidation';
 
 export default (data) => {
-	const joiResult = Joi.validate(data, cpmsTransactionValidation.request);
+	const schema = cpmsTransactionValidation.request;
+	const joiResult = schema.validate(data);
 	if (joiResult.error) {
 		return {
 			valid: false,

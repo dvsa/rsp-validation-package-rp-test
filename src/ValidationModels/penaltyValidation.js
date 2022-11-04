@@ -20,10 +20,9 @@ const trailerSchema = {
 	number2: Joi.string(),
 };
 
-
 const valueSchema = {
 	penaltyType: Joi.string().regex(/^(IM|CDN|FPN)$/).required(),
-	paymentStatus: Joi.string().valid(['PAID', 'UNPAID']),
+	paymentStatus: Joi.string().valid('PAID', 'UNPAID'),
 	paymentAuthCode: Joi.string().alphanum(),
 	// .when('paymentStatus', { is: 'PAID', then: Joi.required() }),
 	paymentDate: Joi.number().integer(),
