@@ -1,10 +1,10 @@
 /* eslint no-restricted-syntax: 0 */
 /* eslint no-prototype-builtins: 0 */
-import Joi from 'joi';
 import paymentValidation from '../ValidationModels/paymentValidation';
 
 export default (data) => {
-	const validationResult = Joi.validate(data, paymentValidation.request);
+	const schema = paymentValidation.request;
+	const validationResult = schema.validate(data);
 	if (validationResult.error) {
 		return {
 			valid: false,
@@ -33,7 +33,6 @@ export default (data) => {
 	return { valid: true, error: {} };
 };
 
-
 function validatePaymentRef(penaltyReference, penaltyType) {
 	if (typeof penaltyReference === 'undefined' || typeof penaltyType === 'undefined') {
 		return false;
@@ -54,7 +53,7 @@ function validatePaymentRef(penaltyReference, penaltyType) {
 		}
 		return false;
 
-	} else if (penaltyType === 'CDN' || penaltyType === 'FPN') {
+	} if (penaltyType === 'CDN' || penaltyType === 'FPN') {
 		const matches = penaltyReference.match(/^([0-9]{12,13})$/);
 		if (matches === null) {
 			return false;
