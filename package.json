@@ -1,6 +1,6 @@
 {
-  "name": "rsp-validation",
-  "version": "1.5.17",
+  "name": "@dvsa/rsp-validation",
+  "version": "1.6.0",
   "description": "Validation package for Roadside Payments",
   "main": "dist/index.js",
   "engine": {
@@ -22,7 +22,7 @@
     "dvsa",
     "validation"
   ],
-  "author": "BJSS",
+  "author": "Driver and Vehicle Standards Agency",
   "license": "MIT",
   "dependencies": {
     "joi": "^17.7.0"
