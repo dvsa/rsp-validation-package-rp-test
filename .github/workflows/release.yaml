@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish:
-    uses: dvsa/.github/.github/workflows/nodejs-publish.yaml@2.1
+    uses: dvsa/.github/.github/workflows/nodejs-publish.yaml@v2.1
     with:
       node_version: '16.x'
     secrets:
