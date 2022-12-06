@@ -5,15 +5,15 @@ on:
 
 jobs:
   test:
-    uses: dvsa/.github/.github/workflows/nodejs-test.yaml@v2.2
+    uses: dvsa/.github/.github/workflows/nodejs-test.yaml@v2.3
 
   security:
-    uses: dvsa/.github/.github/workflows/nodejs-security.yaml@v2.2
+    uses: dvsa/.github/.github/workflows/nodejs-security.yaml@v2.3
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   build:
-    uses: dvsa/.github/.github/workflows/nodejs-build.yaml@v2.2
+    uses: dvsa/.github/.github/workflows/nodejs-build.yaml@v2.3
     with:
       upload_artifact: true
       build_folder: package
@@ -23,7 +23,7 @@ jobs:
 
   publish:
     needs: [test, security, build]
-    uses: dvsa/.github/.github/workflows/nodejs-publish.yaml@feature/rsp-2105-update-publish-workflow
+    uses: dvsa/.github/.github/workflows/nodejs-publish.yaml@v2.3
     with:
       node_version: '16.x'
       download_artifact: true
