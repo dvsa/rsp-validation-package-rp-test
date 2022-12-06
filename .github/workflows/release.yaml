@@ -5,9 +5,31 @@ on:
     types: [published]
 
 jobs:
+  test:
+    uses: dvsa/.github/.github/workflows/nodejs-test.yaml@v2.3
+
+  security:
+    uses: dvsa/.github/.github/workflows/nodejs-security.yaml@v2.3
+    secrets:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  build:
+    uses: dvsa/.github/.github/workflows/nodejs-build.yaml@v2.3
+    with:
+      upload_artifact: true
+      build_folder: package
+      build_folder_path: dist
+      retention_days: 3
+      build_command: build
+
   publish:
-    uses: dvsa/.github/.github/workflows/nodejs-publish.yaml@v2.1
+    needs: [test, security, build]
+    uses: dvsa/.github/.github/workflows/nodejs-publish.yaml@v2.3
     with:
       node_version: '16.x'
+      download_artifact: true
+      build_folder: package
+      build_folder_path: dist
+      args: "--access=public"
     secrets:
       NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

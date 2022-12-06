@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.DS_Store
+.github
+src
+test
+.babelrc
+.eslintrc
+.nvmrc
+package-lock.json
+dist/**/*.unit.js
