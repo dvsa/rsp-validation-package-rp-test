@@ -8,8 +8,4 @@ test
 .eslintrc
 .nvmrc
 package-lock.json
-dist/Validations/cpmsTransaction.unit.js
-dist/Validations/payments.unit.js
-dist/Validations/penaltyDocuments.unit.js
-dist/Validations/penaltyGroups.unit.js
-dist/Validations/tokens.unit.js
+dist/**/*.unit.js
