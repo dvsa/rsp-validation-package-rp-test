@@ -1,7 +1,8 @@
 name: NPM Publish
 
 on:
-  push:
+  release:
+    types: [published]
 
 jobs:
   test:
@@ -29,6 +30,6 @@ jobs:
       download_artifact: true
       build_folder: package
       build_folder_path: dist
-      args: "--dry-run"
+      args: "--access=public"
     secrets:
       NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
