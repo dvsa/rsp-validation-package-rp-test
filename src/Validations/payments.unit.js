@@ -41,7 +41,7 @@ describe('paymentValidation', () => {
 		it('should return a fail with message', () => {
 			const retObj = paymentValidation(payment);
 			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			expect(retObj.error.message).toContain('Invalid Input');
 		});
 	});
 
@@ -50,7 +50,8 @@ describe('paymentValidation', () => {
 			examplePayment.PaymentDetail.PaymentAmount = 9;
 			const retObj = paymentValidation(examplePayment);
 			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			expect(retObj.error.message).toContain('Invalid Input');
+			expect(retObj.error.message).toContain('PaymentDetail.PaymentAmount');
 		});
 	});
 
@@ -59,7 +60,8 @@ describe('paymentValidation', () => {
 			examplePayment.PaymentDetail.PaymentAmount = 10000;
 			const retObj = paymentValidation(examplePayment);
 			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			expect(retObj.error.message).toContain('Invalid Input');
+			expect(retObj.error.message).toContain('PaymentDetail.PaymentAmount');
 		});
 	});
 
@@ -68,7 +70,8 @@ describe('paymentValidation', () => {
 			examplePayment.PenaltyType = 'FPX';
 			const retObj = paymentValidation(examplePayment);
 			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			expect(retObj.error.message).toContain('Invalid Input');
+			expect(retObj.error.message).toContain('PenaltyType');
 		});
 	});
 
@@ -77,7 +80,8 @@ describe('paymentValidation', () => {
 			examplePayment.PenaltyType = 'PENDING';
 			const retObj = paymentValidation(examplePayment);
 			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			expect(retObj.error.message).toContain('Invalid Input');
+			expect(retObj.error.message).toContain('PenaltyType');
 		});
 	});
 
@@ -86,7 +90,8 @@ describe('paymentValidation', () => {
 			examplePayment.PenaltyReference = 'ABC-123!XYZ-123';
 			const retObj = paymentValidation(examplePayment);
 			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			expect(retObj.error.message).toContain('Invalid Input');
+			expect(retObj.error.message).toContain('PenaltyReference');
 		});
 	});
 
@@ -95,7 +100,8 @@ describe('paymentValidation', () => {
 			examplePayment.PenaltyReference = '12345678901';
 			const retObj = paymentValidation(examplePayment);
 			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			expect(retObj.error.message).toContain('Invalid Input');
+			expect(retObj.error.message).toContain('PenaltyReference');
 		});
 	});
 	describe('when PenaltyReference greater than 13', () => {
@@ -103,7 +109,8 @@ describe('paymentValidation', () => {
 			examplePayment.PenaltyReference = '12345678901234';
 			const retObj = paymentValidation(examplePayment);
 			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			expect(retObj.error.message).toContain('Invalid Input');
+			expect(retObj.error.message).toContain('PenaltyReference');
 		});
 	});
 
@@ -150,7 +157,8 @@ describe('paymentValidation', () => {
 			examplePayment.PaymentDetail.PaymentMethod = '';
 			const retObj = paymentValidation(examplePayment);
 			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			expect(retObj.error.message).toContain('Invalid Input');
+			expect(retObj.error.message).toContain('PaymentDetail.PaymentMethod');
 		});
 	});
 
@@ -191,7 +199,8 @@ describe('paymentValidation', () => {
 			examplePayment.PaymentDetail.PaymentMethod = 'NONSENSE';
 			const retObj = paymentValidation(examplePayment);
 			expect(retObj.valid).toBe(false);
-			expect(retObj.error.message).toBe('Invalid Input');
+			expect(retObj.error.message).toContain('Invalid Input');
+			expect(retObj.error.message).toContain('PaymentDetail.PaymentMethod');
 		});
 	});
 
@@ -208,7 +217,8 @@ describe('paymentValidation', () => {
 			examplePayment.PaymentDetail.PaymentRef = 'ecms-01-20190131-151909-f38f9fc5';
 			const { valid, error } = paymentValidation(examplePayment);
 			expect(valid).toBe(false);
-			expect(error.message).toBe('Invalid Input');
+			expect(error.message).toContain('Invalid Input');
+			expect(error.message).toContain('PaymentDetail.PaymentRef');
 		});
 	});
 
@@ -217,7 +227,8 @@ describe('paymentValidation', () => {
 			examplePayment.PaymentDetail.AuthCode = '<invalid />';
 			const { valid, error } = paymentValidation(examplePayment);
 			expect(valid).toBe(false);
-			expect(error.message).toBe('Invalid Input');
+			expect(error.message).toContain('Invalid Input');
+			expect(error.message).toContain('PaymentDetail.AuthCode');
 		});
 	});
 });
