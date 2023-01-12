@@ -9,7 +9,7 @@ export default (data) => {
 		return {
 			valid: false,
 			error: {
-				message: 'Invalid Input',
+				message: `Invalid Input: ${validationResult.error.message}`,
 			},
 		};
 	}
