@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.0](https://github.com/dvsa/rsp-validation-package-rp-test/compare/v0.5.0...v0.6.0) (2023-01-19)
+
+
+### Features
+
+* added khfc test ([#14](https://github.com/dvsa/rsp-validation-package-rp-test/issues/14)) ([4e564c7](https://github.com/dvsa/rsp-validation-package-rp-test/commit/4e564c77a50d40656af3c1efab05cc814be6baba))
+* added pr to workflow ([#17](https://github.com/dvsa/rsp-validation-package-rp-test/issues/17)) ([22ef539](https://github.com/dvsa/rsp-validation-package-rp-test/commit/22ef539e12bf9835086c4992b5a81a2422ae0447))
+
 ## [0.5.0](https://github.com/dvsa/rsp-validation-package-rp-test/compare/v0.4.0...v0.5.0) (2023-01-19)
 
 
