@@ -39,5 +39,7 @@ jobs:
       - name: echo something
         run: |
           echo "Hello, World!"
+          echo {{ github.ref }}
+          echo {{ github.ref_name }}
 
       
