@@ -31,4 +31,12 @@ jobs:
       build_folder_path: dist
       retention_days: 3
       build_command: build
+  
+  something:
+    if: startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/fix/') || contains(github.ref, 'refs/heads/master/')
+    jobs:
+      - name: echo something
+        run: |
+        echo "Hello, World!"
+
       
