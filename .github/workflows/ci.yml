@@ -34,7 +34,7 @@ jobs:
   
   something:
     if: startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/fix/') || contains(github.ref, 'refs/heads/master/')
-    jobs:
+    steps:
       - name: echo something
         run: |
           echo "Hello, World!"
