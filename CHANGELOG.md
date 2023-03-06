@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/dvsa/rsp-validation-package-rp-test/compare/v0.6.0...v0.7.0) (2023-03-06)
+
+
+### Features
+
+* add something ([#34](https://github.com/dvsa/rsp-validation-package-rp-test/issues/34)) ([3a52129](https://github.com/dvsa/rsp-validation-package-rp-test/commit/3a52129f474c6c833e4d80bd3af4f2a956101ec3))
+
 ## [0.6.0](https://github.com/dvsa/rsp-validation-package-rp-test/compare/v0.5.0...v0.6.0) (2023-01-20)
 
 
