@@ -37,6 +37,6 @@ jobs:
     jobs:
       - name: echo something
         run: |
-        echo "Hello, World!"
+          echo "Hello, World!"
 
       
